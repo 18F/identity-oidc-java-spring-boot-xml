@@ -1,6 +1,6 @@
 # OpenID Connect Client for Spring Boot
 
-This example application demonstrates how to configure an OpenID Connect client for Spring Boot to connect to the [login.gov](https://login.gov/) identity service. 
+This example application demonstrates how to configure an OpenID Connect client for Spring Boot with an XML-namespace configuration to connect to the [login.gov](https://login.gov/) identity service. 
 
 ## Quick Start
 
@@ -16,7 +16,7 @@ This sample project uses the client library of the [MITREid Connect](https://git
 
 ### Web Security Configuration
 
-The security of this project is handled through Spring Boot annotations, and in particular the `WebSecurityConfig` class found in the `src/main/java/hello/WebSecurityConfig.java` file of this project. Most importantly, this class configures the `OIDCAuthenticationFilter`, which handles the heavy lifting of the OpenID Connect protocol. The filter listens on a special URL path of `/openid_connect_login` within your application's context, and this forms the basis of your application's _redirect URI_, sometimes known as the _callback URL_. This is the URL that the identity server uses to communicate back to your application during the OpenID Connect process, and it needs to be served in a way that's reachable by the end user who's logging in. 
+The security of this project is handled through Spring Boot namespace configuration, and in particular the `servlet-context.xml` file found in the `src/main/resources` directory of this project. This file defines a number of Java beans used by Spring Security. Most importantly, this file configures the `OIDCAuthenticationFilter`, which handles the heavy lifting of the OpenID Connect protocol. The filter listens on a special URL path of `/openid_connect_login` within your application's context, and this forms the basis of your application's _redirect URI_, sometimes known as the _callback URL_. This is the URL that the identity server uses to communicate back to your application during the OpenID Connect process, and it needs to be served in a way that's reachable by the end user who's logging in. 
 
 The filter makes use of several helper utilities to do its work, all of which are also configured in the same file. These include:
 
@@ -24,7 +24,7 @@ The filter makes use of several helper utilities to do its work, all of which ar
  * `JWKSetKeyStore`: loads your application's public and private keys from a file (see configuration section below)
  * `JWTSigningAndValidationService`: uses your application's public and private keys to sign outgoing requests and validate signatures from the identity server
 
-Additionally, many attributes used by these components are configurable through properties. You can customize the filter configuration by either editing the `application.properties` file or by editing the `WebSecurityConfig` class itself. 
+Additionally, many attributes used by these components are configurable through properties. You can customize the filter configuration by either editing the `application.properties` file or by editing the `servlet-context.xml` file directly. 
 
 ### Filter Configuration
 
